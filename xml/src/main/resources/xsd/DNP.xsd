@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+
+    Copyright 2011-16 Green Energy Corp.
+
+    Licensed to Green Energy Corp (www.greenenergycorp.com) under one or more
+    contributor license agreements. See the NOTICE file distributed with this
+    work for additional information regarding copyright ownership. Green Energy
+    Corp licenses this file to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+    License for the specific language governing permissions and limitations under
+    the License.
+
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+             targetNamespace="APLXML.DNP" 
+             xmlns="APLXML.DNP" 
+             xmlns:apl="APLXML.Base"
+             elementFormDefault="qualified">
+
+
+  <xs:import namespace="APLXML.Base" schemaLocation="APL.xsd"/>
+  <!--
+    Root Element
+  -->
+  <xs:element name="Stack">
+    <xs:complexType>
+      <xs:all>
+        <xs:element ref="LinkLayer" maxOccurs="1" minOccurs="1"/>
+        <xs:element ref="AppLayer" maxOccurs="1" minOccurs="1"/>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="LinkLayer">
+    <xs:complexType>
+      <xs:attribute name="IsMaster" type="xs:boolean" use="required"/>
+      <xs:attribute name="LocalAddress" type="xs:int" use="required"/>
+      <xs:attribute name="RemoteAddress" type="xs:int"  use="required"/>
+      <xs:attribute name="UseConfirmations" type="xs:boolean"  use="required"/>
+      <xs:attribute name="AckTimeoutMS" type="xs:int"  use="required"/>
+      <xs:attribute name="NumRetries" type="xs:int"  use="required"/>      
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name="AppLayer">
+    <xs:complexType>
+      <xs:attribute name="TimeoutMS" type="xs:int"  use="required"/>      
+      <xs:attribute name="MaxFragSize" type="xs:int"  use="required"/>
+      <xs:attribute name="NumRetries" type="xs:int"  use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- MASTER CONFIGURATION -->
+
+  <xs:element name="Master">
+    <xs:complexType>
+      <xs:all>        
+        <xs:element ref="Stack" maxOccurs="1" minOccurs="1"/>
+        <xs:element name="MasterSettings">
+          <xs:complexType>
+            <xs:attribute name="AllowTimeSync" type="xs:boolean" use="required"/>
+            <xs:attribute name="TaskRetryMS" type="xs:int" use="required"/>
+            <xs:attribute name="IntegrityPeriodMS" type="xs:int" use="required"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ScanList">
+          <xs:complexType>
+            <xs:sequence minOccurs="0" maxOccurs="unbounded">
+              <xs:element name="ExceptionScan">
+                <xs:complexType>
+                  <xs:attribute name="Class1" type="xs:boolean" use="required" />
+                  <xs:attribute name="Class2" type="xs:boolean" use="required" />
+                  <xs:attribute name="Class3" type="xs:boolean" use="required" />
+                  <xs:attribute name="PeriodMS" type="xs:int" use="required" />
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Unsol">
+          <xs:complexType>
+            <xs:attribute name="DoTask" type ="xs:boolean" use="required" />
+            <xs:attribute name="Enable" type="xs:boolean" use="required" />
+            <xs:attribute name="Class1" type="xs:boolean" use="required" />
+            <xs:attribute name="Class2" type="xs:boolean" use="required" />
+            <xs:attribute name="Class3" type="xs:boolean" use="required" />
+          </xs:complexType>
+        </xs:element>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+
+
+
+  <!-- 
+    type definitions the types that contain a value, each type "subclasses" datapoint 
+    for the common values (class and pointname)
+  -->
+
+  <xs:element name="Binary">
+    <xs:complexType>
+      <xs:attribute name="Index" type="xs:int" use="required" />
+      <xs:attribute name="Name" type="xs:string" use="required"/>
+      <xs:attribute name="ClassGroup" type ="xs:int" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Analog">
+    <xs:complexType>
+      <xs:attribute name="Index" type="xs:int" use="required" />
+      <xs:attribute name="Name" type="xs:string" use="required"/>
+      <xs:attribute name="ClassGroup" type ="xs:int" use="required"/>
+      <xs:attribute name="Deadband" type="xs:int" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Counter">
+    <xs:complexType>
+      <xs:attribute name="Index" type="xs:int" use="required" />
+      <xs:attribute name="ClassGroup" type ="xs:int" use="required"/>
+      <xs:attribute name="Name" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ControlStatus">
+    <xs:complexType>
+      <xs:attribute name="Index" type="xs:int" use="required" />
+      <xs:attribute name="Name" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetpointStatus">
+    <xs:complexType>
+      <xs:attribute name="Index" type="xs:int" use="required" />
+      <xs:attribute name="Name" type="xs:string" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+
+  <!-- 
+    type definitions for the control types
+  -->
+
+  <xs:element name="Setpoint">
+    <xs:complexType>
+      <xs:attribute name="Index" type="xs:int" use="required" />
+      <xs:attribute name="Name" type="xs:string" use="required"/>
+      <xs:attribute name="ControlMode" type="xs:string" use="required"/>
+      <xs:attribute name="SelectTimeoutMS" type="xs:int" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Control">
+    <xs:complexType>
+      <xs:attribute name="Index" type="xs:int" use="required" />
+      <xs:attribute name="Name" type="xs:string" use="required"/>
+      <xs:attribute name="ControlMode" type="xs:string" use="required"/>
+      <xs:attribute name="SelectTimeoutMS" type="xs:int" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>

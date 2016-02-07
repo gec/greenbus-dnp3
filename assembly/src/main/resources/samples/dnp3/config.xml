@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<configuration xmlns="xml.ldr.greenbus.io">
+    <equipmentModel>
+        <equipment name="DeviceContainer">
+            <type name="Root"/>
+            <type name="EquipmentGroup"/>
+
+            <equipment name="DNP3_IED">
+                <type name="Equipment"/>
+                <type name="Generation"/>
+
+                <status name="DNP3_IED.Status00" unit="status">
+                    <type name="Point"/>
+                    <commands>
+                        <reference name="DNP3_IED.Control00Trip"/>
+                        <reference name="DNP3_IED.Control01Close"/>
+                    </commands>
+                    <triggers>
+                        <filter>
+                            <suppress activation="LOW"/>
+                        </filter>
+                    </triggers>
+                </status>
+                <status name="DNP3_IED.Status01" unit="status">
+                    <type name="Point"/>
+                    <triggers>
+                        <filter>
+                            <suppress activation="LOW"/>
+                        </filter>
+                    </triggers>
+                </status>
+                <analog name="DNP3_IED.Analog00" unit="UnitA">
+                    <type name="Point"/>
+                    <commands>
+                        <reference name="DNP3_IED.Setpoint00"/>
+                    </commands>
+                    <triggers>
+                        <filter>
+                            <suppress activation="LOW"/>
+                        </filter>
+                    </triggers>
+                </analog>
+                <analog name="DNP3_IED.Analog01" unit="UnitB">
+                    <type name="Point"/>
+                    <triggers>
+                        <filter>
+                            <suppress activation="LOW"/>
+                        </filter>
+                    </triggers>
+                </analog>
+                <counter name="DNP3_IED.Counter00" unit="count">
+                    <type name="Point"/>
+                    <triggers>
+                        <filter>
+                            <suppress activation="LOW"/>
+                        </filter>
+                    </triggers>
+                </counter>
+                <counter name="DNP3_IED.Counter01" unit="count">
+                    <type name="Point"/>
+                    <triggers>
+                        <filter>
+                            <suppress activation="LOW"/>
+                        </filter>
+                    </triggers>
+                </counter>
+                <status name="DNP3_IED.ControlStatus00" unit="status">
+                    <type name="Point"/>
+                    <triggers>
+                        <filter>
+                            <suppress activation="LOW"/>
+                        </filter>
+                    </triggers>
+                </status>
+                <status name="DNP3_IED.ControlStatus01" unit="status">
+                    <type name="Point"/>
+                    <triggers>
+                        <filter>
+                            <suppress activation="LOW"/>
+                        </filter>
+                    </triggers>
+                </status>
+                <analog name="DNP3_IED.SetpointStatus00" unit="UnitA">
+                    <type name="Point"/>
+                    <commands>
+                        <reference name="DNP3_IED.Setpoint01"/>
+                    </commands>
+                    <triggers>
+                        <filter>
+                            <suppress activation="LOW"/>
+                        </filter>
+                    </triggers>
+                </analog>
+                <analog name="DNP3_IED.SetpointStatus01" unit="UnitB">
+                    <type name="Point"/>
+                    <triggers>
+                        <filter>
+                            <suppress activation="LOW"/>
+                        </filter>
+                    </triggers>
+                </analog>
+
+                <control name="DNP3_IED.Control00Trip" displayName="Trip">
+                    <type name="Command"/>
+                </control>
+                <control name="DNP3_IED.Control01Close" displayName="Close">
+                    <type name="Command"/>
+                </control>
+
+                <setpoint name="DNP3_IED.Setpoint00" displayName="SetValue00">
+                    <type name="Command"/>
+                </setpoint>
+                <setpoint name="DNP3_IED.Setpoint01" displayName="SetValue01">
+                    <type name="Command"/>
+                </setpoint>
+
+            </equipment>
+
+        </equipment>
+    </equipmentModel>
+    <endpointModel>
+
+
+        <endpoint name="DNP3_IED_Endpoint" protocol="dnp3">
+            <type name="Endpoint" />
+
+            <keyValue key="protocolConfig" fileName="comms/dnp3_endpoint_config.xml"/>
+
+            <source name="DNP3_IED.Status00"/>
+            <source name="DNP3_IED.Status01"/>
+            <source name="DNP3_IED.Analog00"/>
+            <source name="DNP3_IED.Analog01"/>
+            <source name="DNP3_IED.Counter00"/>
+            <source name="DNP3_IED.Counter01"/>
+            <source name="DNP3_IED.ControlStatus00"/>
+            <source name="DNP3_IED.ControlStatus01"/>
+            <source name="DNP3_IED.SetpointStatus00"/>
+            <source name="DNP3_IED.SetpointStatus01"/>
+
+            <source name="DNP3_IED.Control00Trip"/>
+            <source name="DNP3_IED.Control01Close"/>
+            <source name="DNP3_IED.Setpoint00"/>
+            <source name="DNP3_IED.Setpoint01"/>
+        </endpoint>
+
+    </endpointModel>
+</configuration>

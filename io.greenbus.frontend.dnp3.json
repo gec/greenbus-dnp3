@@ -1,0 +1,21 @@
+{
+  "amqpConfig" : {
+    "amqpConfigFileList" : [ "io.greenbus.msg.amqp.cfg" ],
+    "failureLimit" : 3,
+    "retryDelayMs": 5000,
+    "connectionTimeoutMs": 10000
+  },
+  "userConfigPath" : "io.greenbus.user.cfg",
+  "registrationConfig" : {
+    "loginRetryMs" : 5000,
+    "registrationRetryMs" : 5000,
+    "releaseTimeoutMs" : 60000,
+    "statusHeartbeatPeriodMs" : 5000,
+    "lapsedTimeMs" : 11000,
+    "statusRetryPeriodMs" : 2000,
+    "measRetryPeriodMs" : 2000,
+    "measQueueLimit" : 1000,
+    "configRequestRetryMs" : 5000
+  }
+}
+
