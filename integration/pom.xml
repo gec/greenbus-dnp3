@@ -5,7 +5,7 @@
     <parent>
         <groupId>io.greenbus</groupId>
         <artifactId>greenbus-dnp3-scala-base</artifactId>
-        <version>3.0.0</version>
+        <version>3.0.1-SNAPSHOT</version>
         <relativePath>../scala-base</relativePath>
     </parent>
 
@@ -43,43 +43,43 @@
         <dependency>
             <groupId>io.greenbus</groupId>
             <artifactId>greenbus-integration</artifactId>
-            <version>3.0.0</version>
+            <version>3.0.1-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.greenbus</groupId>
             <artifactId>greenbus-client</artifactId>
-            <version>3.0.0</version>
+            <version>3.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>io.greenbus</groupId>
             <artifactId>greenbus-app-framework</artifactId>
-            <version>3.0.0</version>
+            <version>3.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>io.greenbus</groupId>
             <artifactId>greenbus-util</artifactId>
-            <version>3.0.0</version>
+            <version>3.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>io.greenbus</groupId>
             <artifactId>greenbus-dnp3-xml</artifactId>
-            <version>3.0.0</version>
+            <version>3.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>io.greenbus</groupId>
             <artifactId>greenbus-dnp3-frontend</artifactId>
-            <version>3.0.0</version>
+            <version>3.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>io.greenbus</groupId>
             <artifactId>greenbus-services</artifactId>
-            <version>3.0.0</version>
+            <version>3.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>io.greenbus</groupId>
             <artifactId>greenbus-processing</artifactId>
-            <version>3.0.0</version>
+            <version>3.0.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.typesafe.akka</groupId>
