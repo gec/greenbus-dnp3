@@ -50,6 +50,10 @@ object Dnp3MasterFrontend extends Logging {
 
     def protocolMgrFactory(context: ActorContext): MasterProtocol[(Dnp3MasterConfig, IndexMapping, Map[String, OutputMapping])] = new Dnp3MasterProtocol
 
+    if (Option(System.getProperty("akka.logger-startup-timeout")).isEmpty) {
+      System.setProperty("akka.logger-startup-timeout", "30s")
+    }
+
     val rootConfig = ConfigFactory.load()
     val slf4jConfig = ConfigFactory.parseString("""akka { loggers = ["akka.event.slf4j.Slf4jLogger"] }""")
     val akkaConfig = slf4jConfig.withFallback(rootConfig)
