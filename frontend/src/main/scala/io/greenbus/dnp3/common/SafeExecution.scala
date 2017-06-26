@@ -18,9 +18,9 @@
  */
 package io.greenbus.dnp3.common
 
-import com.typesafe.scalalogging.slf4j.Logging
+import com.typesafe.scalalogging.LazyLogging
 
-object SafeExecution extends Logging {
+object SafeExecution extends LazyLogging {
 
   def safeExecute[A](fun: => A) {
     try {

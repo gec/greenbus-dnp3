@@ -18,15 +18,15 @@
  */
 package io.greenbus.dnp3.common
 
+import com.typesafe.scalalogging.{ LazyLogging, Logger }
 import org.totalgrid.dnp3._
-import com.typesafe.scalalogging.slf4j.{ Logger, Logging }
 import org.slf4j.LoggerFactory
 
 /**
  * Shim layer to push log messages from the c++ dnp3 world
  */
 
-class LogAdapter extends ILogBase with Logging {
+class LogAdapter extends ILogBase with LazyLogging {
 
   import SafeExecution._
 

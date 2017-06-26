@@ -21,14 +21,13 @@ package io.greenbus.dnp3.integration
 import java.util.UUID
 
 import akka.actor.{ ActorContext, ActorRef, ActorSystem }
-import com.typesafe.scalalogging.slf4j.Logging
-import org.scalatest.matchers.ShouldMatchers
+import com.typesafe.scalalogging.LazyLogging
 import org.totalgrid.dnp3.{ IDataObserver, StackManager, StackStates }
 import io.greenbus.msg.Session
 import io.greenbus.msg.amqp.AmqpSettings
 import io.greenbus.msg.qpid.QpidBroker
 import io.greenbus.app.actor.{ AmqpConnectionConfig, ProtocolsEndpointStrategy }
-import io.greenbus.app.actor.frontend.{ FrontendRegistrationConfig, FrontendFactory, MasterProtocol }
+import io.greenbus.app.actor.frontend.{ FrontendFactory, FrontendRegistrationConfig, MasterProtocol }
 import io.greenbus.client.ServiceConnection
 import io.greenbus.client.service.proto.Measurements.MeasurementNotification
 import io.greenbus.dnp3.integration.Dnp3IntegrationConfiguration._
@@ -39,11 +38,12 @@ import io.greenbus.integration.tools.ServiceWatcher
 import io.greenbus.measproc.MeasurementProcessor
 import io.greenbus.services.{ CoreServices, ResetDatabase, ServiceManager }
 import io.greenbus.util.UserSettings
+import org.scalatest.Matchers
 
 import scala.concurrent.Await
 import scala.concurrent.duration._
 
-class Dnp3Fixture extends ShouldMatchers with Logging {
+class Dnp3Fixture extends Matchers with LazyLogging {
   import io.greenbus.integration.tools.PollingUtils._
 
   val testConfigPath = "io.greenbus.test.cfg"
@@ -70,7 +70,7 @@ class Dnp3Fixture extends ShouldMatchers with Logging {
     ResetDatabase.reset(testConfigPath)
 
     logger.info("starting services")
-    services = Some(system.actorOf(ServiceManager.props(testConfigPath, testConfigPath, CoreServices.runServices)))
+    services = Some(system.actorOf(ServiceManager.props(testConfigPath, testConfigPath, CoreServices.runServicesSql)))
 
     val amqpConfig = AmqpSettings.load(testConfigPath)
     val conn = ServiceConnection.connect(amqpConfig, QpidBroker, 2000)
@@ -87,7 +87,7 @@ class Dnp3Fixture extends ShouldMatchers with Logging {
     Dnp3IntegrationConfiguration.loadActions(Dnp3IntegrationConfiguration.buildConfig("Device01", "Endpoint01", 33004, "dnp3"), session)
 
     logger.info("starting processor")
-    processor = Some(system.actorOf(MeasurementProcessor.buildProcessor(testConfigPath, testConfigPath, testConfigPath, 20000, "testNode")))
+    processor = Some(system.actorOf(MeasurementProcessor.buildProcessor(testConfigPath, testConfigPath, testConfigPath, testConfigPath, 20000, "testNode")))
 
     Thread.sleep(300)
 

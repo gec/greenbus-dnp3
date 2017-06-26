@@ -18,15 +18,15 @@
  */
 package io.greenbus.dnp3
 
-import com.typesafe.scalalogging.slf4j.Logging
+import com.typesafe.scalalogging.LazyLogging
 import io.greenbus.app.actor.frontend._
 import io.greenbus.client.service.proto.FrontEnd.FrontEndConnectionStatus
 import io.greenbus.client.service.proto.Measurements.Measurement
-import io.greenbus.client.service.proto.Model.{ EntityKeyValue, Endpoint, ModelUUID }
+import io.greenbus.client.service.proto.Model.{ Endpoint, EntityKeyValue, ModelUUID }
 import io.greenbus.dnp3.common.StackObserver
 import io.greenbus.dnp3.master.{ Dnp3XmlConfigurer, IndexMapping, MeasurementObserver, OutputMapping }
 
-object Dnp3MasterProtocol extends ProtocolConfigurer[(Dnp3MasterConfig, IndexMapping, Map[String, OutputMapping])] with Logging {
+object Dnp3MasterProtocol extends ProtocolConfigurer[(Dnp3MasterConfig, IndexMapping, Map[String, OutputMapping])] with LazyLogging {
 
   val configKey = "protocolConfig"
 
@@ -55,7 +55,7 @@ object Dnp3MasterProtocol extends ProtocolConfigurer[(Dnp3MasterConfig, IndexMap
   }
 }
 
-class Dnp3MasterProtocol extends MasterProtocol[(Dnp3MasterConfig, IndexMapping, Map[String, OutputMapping])] with Logging {
+class Dnp3MasterProtocol extends MasterProtocol[(Dnp3MasterConfig, IndexMapping, Map[String, OutputMapping])] with LazyLogging {
 
   private val mgr = new Dnp3Manager
 

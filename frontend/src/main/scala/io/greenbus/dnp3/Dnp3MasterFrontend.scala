@@ -23,15 +23,15 @@ import java.util.UUID
 
 import akka.actor.{ ActorContext, ActorSystem }
 import com.typesafe.config.ConfigFactory
-import com.typesafe.scalalogging.slf4j.Logging
-import io.greenbus.app.actor.frontend.json.{ JsonFrontendRegistrationConfig, JsonFrontendConfiguration }
+import com.typesafe.scalalogging.LazyLogging
+import io.greenbus.app.actor.frontend.json.{ JsonFrontendConfiguration, JsonFrontendRegistrationConfig }
 import io.greenbus.app.actor.json.JsonAmqpConfig
 import io.greenbus.app.actor.{ AmqpConnectionConfig, EndpointCollectionStrategy, ProtocolsEndpointStrategy }
 import io.greenbus.app.actor.frontend._
 import io.greenbus.dnp3.master.{ IndexMapping, OutputMapping }
 import org.apache.commons.io.IOUtils
 
-object Dnp3MasterFrontend extends Logging {
+object Dnp3MasterFrontend extends LazyLogging {
 
   def main(args: Array[String]) {
     System.loadLibrary("opendnp3")

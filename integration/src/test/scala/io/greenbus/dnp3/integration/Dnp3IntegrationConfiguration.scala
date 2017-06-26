@@ -18,18 +18,18 @@
  */
 package io.greenbus.dnp3.integration
 
-import com.typesafe.scalalogging.slf4j.Logging
+import com.typesafe.scalalogging.LazyLogging
 import io.greenbus.client.service.proto.Processing.Filter.FilterType
-import io.greenbus.client.service.proto.Processing.{ TriggerSet, Action, Filter, Trigger }
+import io.greenbus.client.service.proto.Processing.{ Action, Filter, Trigger, TriggerSet }
 import io.greenbus.loader.set.Actions._
 import io.greenbus.loader.set.Mdl.EdgeDesc
-import io.greenbus.loader.set.{ ByteArrayValue, NamedEntId, Mdl, Upload }
+import io.greenbus.loader.set.{ ByteArrayValue, Mdl, NamedEntId, Upload }
 import io.greenbus.msg.Session
 import org.totalgrid.dnp3._
-import io.greenbus.client.service.proto.{ Processing, Model }
+import io.greenbus.client.service.proto.{ Model, Processing }
 import io.greenbus.dnp3.Dnp3MasterProtocol
 
-object Dnp3IntegrationConfiguration extends Logging {
+object Dnp3IntegrationConfiguration extends LazyLogging {
 
   def loadSlave(suffix: String, port: Int, stackManager: StackManager, cmdAcceptor: ICommandAcceptor, stackObserver: Option[IStackObserver]): IDataObserver = {
 

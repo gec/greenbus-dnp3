@@ -18,8 +18,8 @@
  */
 package io.greenbus.dnp3.master
 
+import com.typesafe.scalalogging.LazyLogging
 import org.totalgrid.dnp3._
-import com.typesafe.scalalogging.slf4j.Logging
 import io.greenbus.dnp3.common.SafeExecution
 import io.greenbus.client.service.proto.Measurements.Measurement
 
@@ -39,7 +39,7 @@ trait MeasurementObserver {
  * @param mapping Measurement mapping configuration
  * 	@param accept Function that accepts the converted measurement types
  */
-class MeasAdapter(mapping: IndexMapping, accept: (Long, Seq[(String, Measurement)]) => Unit) extends IDataObserver with Logging {
+class MeasAdapter(mapping: IndexMapping, accept: (Long, Seq[(String, Measurement)]) => Unit) extends IDataObserver with LazyLogging {
 
   import SafeExecution._
 

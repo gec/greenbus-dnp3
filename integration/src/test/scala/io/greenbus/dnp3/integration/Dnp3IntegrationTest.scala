@@ -23,17 +23,16 @@ import java.util.UUID
 import akka.actor.{ ActorContext, ActorRef, ActorSystem }
 import akka.pattern.ask
 import com.google.protobuf.ByteString
-import com.typesafe.scalalogging.slf4j.Logging
+import com.typesafe.scalalogging.LazyLogging
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
-import org.scalatest.matchers.ShouldMatchers
-import org.scalatest.{ BeforeAndAfterAll, FunSuite }
+import org.scalatest.{ BeforeAndAfterAll, FunSuite, Matchers }
 import org.totalgrid.dnp3.{ Transaction, _ }
 import io.greenbus.msg.Session
 import io.greenbus.msg.amqp.AmqpSettings
 import io.greenbus.msg.qpid.QpidBroker
 import io.greenbus.app.actor.{ AmqpConnectionConfig, ProtocolsEndpointStrategy }
-import io.greenbus.app.actor.frontend.{ FrontendRegistrationConfig, FrontEndSetManager, FrontendFactory, MasterProtocol }
+import io.greenbus.app.actor.frontend.{ FrontEndSetManager, FrontendFactory, FrontendRegistrationConfig, MasterProtocol }
 import io.greenbus.client.ServiceConnection
 import io.greenbus.client.service.proto.CommandRequests.CommandSelect
 import io.greenbus.client.service.proto.Commands
@@ -55,7 +54,7 @@ import scala.concurrent.Await
 import scala.concurrent.duration._
 
 @RunWith(classOf[JUnitRunner])
-class Dnp3IntegrationTest extends FunSuite with ShouldMatchers with Logging with BeforeAndAfterAll {
+class Dnp3IntegrationTest extends FunSuite with Matchers with LazyLogging with BeforeAndAfterAll {
   import io.greenbus.dnp3.integration.Dnp3IntegrationConfiguration._
   import io.greenbus.dnp3.integration.tools.SlaveObserver._
   import io.greenbus.integration.tools.PollingUtils._
@@ -106,7 +105,7 @@ class Dnp3IntegrationTest extends FunSuite with ShouldMatchers with Logging with
     ResetDatabase.reset(testConfigPath)
 
     logger.info("starting services")
-    services = Some(system.actorOf(ServiceManager.props(testConfigPath, testConfigPath, CoreServices.runServices)))
+    services = Some(system.actorOf(ServiceManager.props(testConfigPath, testConfigPath, CoreServices.runServicesSql)))
 
     val amqpConfig = AmqpSettings.load(testConfigPath)
     val conn = ServiceConnection.connect(amqpConfig, QpidBroker, 5000)
@@ -123,7 +122,7 @@ class Dnp3IntegrationTest extends FunSuite with ShouldMatchers with Logging with
     Dnp3IntegrationConfiguration.loadActions(Dnp3IntegrationConfiguration.buildConfig("Device01", "Endpoint01", 33004, "dnp3"), session)
 
     logger.info("starting processor")
-    processor = Some(system.actorOf(MeasurementProcessor.buildProcessor(testConfigPath, testConfigPath, testConfigPath, 20000, "testNode")))
+    processor = Some(system.actorOf(MeasurementProcessor.buildProcessor(testConfigPath, testConfigPath, testConfigPath, testConfigPath, 20000, "testNode")))
     Thread.sleep(500)
   }
 

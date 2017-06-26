@@ -19,23 +19,22 @@
 package io.greenbus.dnp3.integration
 
 import akka.pattern.ask
-import com.typesafe.scalalogging.slf4j.Logging
+import com.typesafe.scalalogging.LazyLogging
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
-import org.scalatest.matchers.ShouldMatchers
-import org.scalatest.{ BeforeAndAfterEach, FunSuite }
+import org.scalatest.{ BeforeAndAfterEach, FunSuite, Matchers }
 import org.totalgrid.dnp3.StackStates
 import io.greenbus.msg.Session
 import io.greenbus.app.actor.frontend.FrontEndSetManager
 import io.greenbus.client.service.ModelService
-import io.greenbus.client.service.proto.ModelRequests.{ EntityKeyPair, EndpointDisabledUpdate, EntityKeySet }
+import io.greenbus.client.service.proto.ModelRequests.{ EndpointDisabledUpdate, EntityKeyPair, EntityKeySet }
 import io.greenbus.dnp3.Dnp3MasterProtocol
 
 import scala.concurrent.Await
 import scala.concurrent.duration._
 
 @RunWith(classOf[JUnitRunner])
-class EndpointDroppingTests extends FunSuite with ShouldMatchers with Logging with BeforeAndAfterEach {
+class EndpointDroppingTests extends FunSuite with Matchers with LazyLogging with BeforeAndAfterEach {
 
   var currentFixture = Option.empty[Dnp3Fixture]
 

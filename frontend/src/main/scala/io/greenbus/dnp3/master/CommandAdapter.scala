@@ -18,11 +18,11 @@
  */
 package io.greenbus.dnp3.master
 
+import com.typesafe.scalalogging.LazyLogging
 import io.greenbus.client.service.proto.Commands
-
 import org.totalgrid.dnp3._
-import com.typesafe.scalalogging.slf4j.Logging
-import scala.concurrent.{ Promise, Future }
+
+import scala.concurrent.{ Future, Promise }
 import io.greenbus.app.actor.frontend.ProtocolCommandAcceptor
 
 sealed trait OutputMapping
@@ -35,7 +35,7 @@ object CommandAdapter {
 
 }
 
-class CommandAdapter(cmdAcceptor: ICommandAcceptor, mapping: Map[String, OutputMapping]) extends IResponseAcceptor with ProtocolCommandAcceptor with Logging {
+class CommandAdapter(cmdAcceptor: ICommandAcceptor, mapping: Map[String, OutputMapping]) extends IResponseAcceptor with ProtocolCommandAcceptor with LazyLogging {
   import CommandAdapter._
 
   private var sequence = 0
